@@ -26,11 +26,15 @@ def main():
             .title h1 {
                 text-align: center;
                 font-size: 50px;
-                color: blue;
+                color: #FEE469;
+            }
+            
+            body {
+                background-color: #54B9C1;
             }
 
         </style>
-
+        <body>
         <div class="title">
             <h1><i>Industrial Training Project</i></h1>
         </div>
@@ -84,26 +88,26 @@ def main():
     """
     st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
 
-    x = data["lotsize"]
-    xMean = x.mean()
-    xStd = x.std()
-    xNorm = (x - xMean) / xStd
+    #x = data["lotsize"]
+    #xMean = x.mean()
+    #xStd = x.std()
+    #xNorm = (x - xMean) / xStd
     independentVariables = data.columns
     independentVariables = independentVariables.delete(0)
-    x = data[independentVariables]
-    y = data["price"]
-    scale = StandardScaler
-    x = data["lotsize"]
-    xMin = x.min()
-    xMax = x.max()
-    xNorm = (x - xMin) / (xMax - xMin)
+    #x = data[independentVariables]
+    #y = data["price"]
+    #scale = StandardScaler
+    #x = data["lotsize"]
+    #xMin = x.min()
+    #xMax = x.max()
+    #xNorm = (x - xMin) / (xMax - xMin)
 
-    x = data[independentVariables]
-    xMin = x.min()
-    xMax = x.max()
-    xNorm = (x - xMin) / (xMax - xMin)
-    scale = MinMaxScaler()
-    xNorm = scale.fit_transform(x)
+    #x = data[independentVariables]
+    #xMin = x.min()
+    #xMax = x.max()
+    #xNorm = (x - xMin) / (xMax - xMin)
+    #scale = MinMaxScaler()
+    #xNorm = scale.fit_transform(x)
     y = data["price"]
     independentVar = data.columns
     independentVar = independentVar.delete(0)
@@ -111,31 +115,31 @@ def main():
     lr = LinearRegression()
     lr.fit(x,y)
     OLS(y,x).fit()
-    ypred = lr.predict(x)
-    ymean = y.mean()
-    sqTotal = np.square(y - ymean)
-    sst = sqTotal.sum()
+    #ypred = lr.predict(x)
+    #ymean = y.mean()
+    #sqTotal = np.square(y - ymean)
+    #sst = sqTotal.sum()
     #ssr(sum of sq resideual)
-    squaredResideual = np.square(ypred-ymean)
-    ssr = squaredResideual.sum()
+    #squaredResideual = np.square(ypred-ymean)
+    #ssr = squaredResideual.sum()
     #calc rsquare = r2score
-    r2Score = (ssr / sst)
+    #r2Score = (ssr / sst)
     # calc rms error
-    error = y - ypred
-    sqError = np.square(error)
+    #error = y - ypred
+    #sqError = np.square(error)
 
     #mean
-    sse = sqError.sum()
-    meanError = sse / len(y)
-    rmse = np.sqrt(meanError)
+    #sse = sqError.sum()
+    #meanError = sse / len(y)
+    #rmse = np.sqrt(meanError)
 
 
     #mean absolute error
-    absError = abs(y - ypred)
-    sae = absError.sum()
-    mae = sae / len(y)
+    #absError = abs(y - ypred)
+    #sae = absError.sum()
+    #mae = sae / len(y)
 
-    r2score = r2_score(y,  ypred)
+    #r2score = r2_score(y,  ypred)
 
     y = data["price"]
     independentVar = data.columns
@@ -206,17 +210,25 @@ def main():
 
     user_df = pd.DataFrame(data = user_input, index=[0], columns = independentVar)
 
-    lr = lm.LinearRegression()
-    lr.fit(x,y)
+    #lr = lm.LinearRegression()
+    #lr.fit(x,y)
     
+
 
     if st.button("PREDICT"):
         price = ''
         lr = lm.LinearRegression()
         lr.fit(x,y)
         price = lr.predict(user_df)
+        if aa == 0.0 and bb == 0.0 and cc == 0.0 and dd == 0.0 and ee == 0.0 and ff == 0.0 and gg == 0.0 and hh == 0.0 and ii == 0.0 and jj == 0.0 :
+            price[0] = 0
+        st.markdown("House Price in USD = " + str(int(abs(price[0]))))
 
-        st.markdown("House Price in USD = " + str(price[0]))
+    body_ends = """
+        </body>
+    """
+
+    st.markdown(body_ends, unsafe_allow_html=True)
 
 if __name__ == '__main__':
     main()
